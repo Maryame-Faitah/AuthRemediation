@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,8 +14,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::group(['middleware' => ['auth']], function(){
+
+    // Recup donnée lors d'une authentification d'UN seul user sans controller
+    // Route::get('/', function () {
+    //     return view('welcome');
+    // });
+
+    Route::resource('/','UserController');
 });
 
 Auth::routes();
